@@ -32,7 +32,7 @@ export class wksListView extends BaseViewElement {
 			const [menu] = append(document.body, `
 			<c-menu id='wks-card-menu'>
 			<li class="do-delete">Delete</li>
-			<li class="do-delete">Edit</li>
+			<li class="do-edit">Edit</li>
 			</c-menu>`);
 
 			position(menu, evt.selectTarget, { at: 'bottom', align: 'right' });
@@ -44,6 +44,19 @@ export class wksListView extends BaseViewElement {
 					throw new Error(`UI ERROR - cannot find data-type Case data-id on element ${cardEl}`);
 				}
 				await wksDco.remove(id);
+			})
+
+			on(menu, 'pointerup', '.do-edit', async (evt) => {
+				const id = asNum(cardEl?.getAttribute('data-id'));
+				if (id == null) {
+					throw new Error(`UI ERROR - cannot find data-type Case data-id on element ${cardEl}`);
+				}
+				await wksDco.get(id);
+
+				const dialogEl = append(document.body, elem('dg-wks-add'));
+				on(dialogEl, 'WKS_ADD', (evt) => {
+					wksDco.create(evt.detail);
+				});
 			})
 		}
 	}
