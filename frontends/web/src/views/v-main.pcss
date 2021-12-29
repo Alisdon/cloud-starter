@@ -70,6 +70,9 @@ v-main{
 		& > * {
 			flex: 1;
 		}
+		&.is-show-profile {
+			position: relative;
+		}
 	}
 
 	& > footer{
@@ -89,4 +92,29 @@ v-main{
 		font-size: 11px;
 	}
 
+	.line {
+		height: 0.1rem;
+		background-color: var(--clr-gray-300);
+		width: calc(100% + 5rem);
+		margin-left: -2rem;
+	}
+
+	.name, .other {
+		font-size: 0.9rem;
+		color: var(--clr-gray-500);
+	}
+
+	.username {
+		margin-top: 1rem;
+	}
+
+	.other {
+		margin: 1rem 0;
+
+		span {
+			& + span {
+				margin-left: 2rem;
+			}
+		}
+	}
 }

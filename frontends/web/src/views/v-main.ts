@@ -2,8 +2,12 @@ import { position } from '@dom-native/draggable';
 import { getRouteWksId, pathAt } from 'common/route.js';
 import { logoff, UserContext } from 'common/user-ctx.js';
 import { BaseViewElement } from 'common/v-base.js';
-import { append, customElement, first, frag, on, onEvent, onHub, push } from 'dom-native';
+import { append, css, customElement, first, frag, on, onEvent, onHub, push } from 'dom-native';
 import { isNotEmpty } from 'utils-min';
+
+const _compCss = css`
+
+`
 
 const defaultPath = "";
 
@@ -49,6 +53,10 @@ export class MainView extends BaseViewElement {
 				await logoff();
 				window.location.href = '/';
 			});
+
+			on(menu, 'pointerup', 'li.show-profile', async (evt) => {
+				this.doOpenProfilePanel()
+			});
 		}
 	}
 
@@ -82,6 +90,34 @@ export class MainView extends BaseViewElement {
 			}
 		}
 
+	}
+
+	private doOpenProfilePanel() { 
+		const parentNode = first('v-main main');
+		
+		if (first(parentNode, 'c-slide-panel') == null) {
+			parentNode?.classList.add('is-show-profile');
+			
+			const [panel] = append(parentNode as HTMLElement, frag(`
+				<c-slide-panel>
+					<div slot="title">User Profile</div>
+					<div>
+						<div class="line"></div>
+						<h3 class="username">${this._userContext?.username}</h3>
+						<h3 class="name">${this._userContext?.name}</h3>
+						<h3 class="other">
+							<span>Role: ${this._userContext?.role || 'unknown'}</span>  
+							<span>Member since: ${this._userContext?.member || 'unknown'}</span>
+						</h3>
+						<div class="line"></div>
+					</div>
+				</c-slide-panel>
+			`));
+
+			on(panel, 'CLOSE', async (evt) => {
+				parentNode?.classList.remove('is-show-profile');
+			});
+		}
 	}
 
 }

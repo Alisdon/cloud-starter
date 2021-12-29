@@ -32,6 +32,7 @@ export class wksListView extends BaseViewElement {
 			const [menu] = append(document.body, `
 			<c-menu id='wks-card-menu'>
 			<li class="do-delete">Delete</li>
+			<li class="do-delete">Edit</li>
 			</c-menu>`);
 
 			position(menu, evt.selectTarget, { at: 'bottom', align: 'right' });

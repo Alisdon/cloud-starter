@@ -16,6 +16,7 @@ const _compCss = css`
 		text-transform: none; 
 		padding: 0;
 		margin: 0;
+		z-index: 2;
 		display: grid;
 		grid-auto-flow: row;
 		grid-auto-rows: min-content; /* or max-content */

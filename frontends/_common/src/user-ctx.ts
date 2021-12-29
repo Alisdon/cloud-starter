@@ -4,6 +4,8 @@ export interface UserContext {
 	id: number;
 	name: string;
 	username: string;
+	role: string,
+	member: string
 }
 
 export async function login(username: string, pwd: string) {
