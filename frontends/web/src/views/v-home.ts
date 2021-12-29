@@ -1,7 +1,7 @@
 import { position } from '@dom-native/draggable';
 import { BaseViewElement } from 'common/v-base.js';
 import { wksDco } from 'dcos';
-import { append, closest, customElement, elem, first, on, OnEvent, onEvent, onHub } from 'dom-native';
+import { append, closest, customElement, elem, first, on, OnEvent, onEvent, onHub, push } from 'dom-native';
 import { Wks } from 'shared/entities.js';
 import { asNum } from 'utils-min';
 
@@ -51,11 +51,16 @@ export class wksListView extends BaseViewElement {
 				if (id == null) {
 					throw new Error(`UI ERROR - cannot find data-type Case data-id on element ${cardEl}`);
 				}
-				await wksDco.get(id);
-
-				const dialogEl = append(document.body, elem('dg-wks-add'));
-				on(dialogEl, 'WKS_ADD', (evt) => {
-					wksDco.create(evt.detail);
+				
+				// get the workspace info
+				const wksContext = await wksDco.get(id);
+				const dialogEl = append(document.body, elem('dg-wks-edit'));
+				
+				// fill value
+				push(first(dialogEl, '.dialog-content')!, { name: wksContext.name })
+				
+				on(dialogEl, 'WKS_EDIT', (evt) => {
+					wksDco.update(id, evt.detail);
 				});
 			})
 		}
