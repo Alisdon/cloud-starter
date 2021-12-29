@@ -92,14 +92,16 @@ export class SliderPanelElement extends BaseHTMLElement {
 		this.close();
 	}
 
+	@onEvent('pointerup')
+	onContextUp(e: PointerEvent) {
+		e.stopPropagation()
+		e.cancelBubble = true;
+	}
+
 	@onDoc('pointerup')
-	onDocUp(evt: PointerEvent) {
+	onDocUp() {
 		if (this._acceptDocEvent) {
-			const el = evt.target as HTMLElement;
-			const parentEl = closest(el, '.slide-panel');
-			if (parentEl == null || parentEl != this) {
-				this.close();
-			}
+			this.close();
 		}
 	}
 	//#endregion ---------- /Events ----------
