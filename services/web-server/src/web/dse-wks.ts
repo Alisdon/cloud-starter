@@ -15,7 +15,7 @@ class WksDse extends ApiRouter {
 
 		const type = ktx.params.type;
 
-		let queryOptions: WksQueryOptions = { access: 'wa_content_view' };
+		let queryOptions: WksQueryOptions = { access: 'wa_content_view', orderBy: 'rank' };
 
 		// TODO need to validate
 		if (typeof ktx.query.matching == 'string') {
