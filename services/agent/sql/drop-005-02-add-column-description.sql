@@ -1,0 +1,1 @@
+ALTER TABLE wks ADD COLUMN description text;

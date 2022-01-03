@@ -60,7 +60,10 @@ export class wksListView extends BaseViewElement {
 				const dialogEl = append(document.body, elem('dg-wks-edit'));
 				
 				// fill value
-				push(first(dialogEl, '.dialog-content')!, { name: wksContext.name })
+				push(first(dialogEl, '.dialog-content')!, {
+					name: wksContext.name,
+					description: wksContext.description
+				})
 				
 				on(dialogEl, 'WKS_EDIT', (evt) => {
 					wksDco.update(id, evt.detail);
@@ -224,6 +227,7 @@ function _render(wksList: Wks[] = []) {
 			<h2>${p.name}</h2>
 			<c-ico src="#ico-more" class="show-menu"></c-ico>
 		</header>
+		<section class="desc">${p.description || ''}</section>
 	</a>	`
 	};
 

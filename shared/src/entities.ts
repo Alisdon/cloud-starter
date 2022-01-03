@@ -36,7 +36,8 @@ export interface Wks extends StampedEntity {
 	uuid: string;
 	name: string;
 	rank: number;
-	accesses?: WksAccesses
+	accesses?: WksAccesses;
+	description?: string
 }
 
 export interface WksScopedEntity {
