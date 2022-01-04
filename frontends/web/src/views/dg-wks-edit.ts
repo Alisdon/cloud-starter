@@ -10,10 +10,6 @@ const _compCss = css`
 		grid-auto-rows: min-content; 
 		grid-gap: 1rem;
 	}
-
-	::slotted(.dialog-content d-text) {
-		background: red;
-	}
 `;
 
 
@@ -39,8 +35,8 @@ export class DgWksEdit extends DgDialog {
 			<div slot="title">Edit Workspace!!</div>
 
 			<div class="dialog-content">
-				<d-input label="name" name="name"> </d-input>
-				<d-text label="description" name="description"> </d-text>
+				<d-input label="name" name="name"></d-input>
+				<d-text label="description" name="description"></d-text>
 			</div>
 			
 			<button slot="footer" class="do-cancel">CANCEL</button>

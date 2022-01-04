@@ -10,11 +10,6 @@ const _compCss = css`
 		grid-auto-rows: min-content; 
 		grid-gap: 1rem;
 	}
-
-	::slotted(.desc) {
-		// padding-top: 1rem;
-		background-color: red;
-	}
 `;
 
 
@@ -40,8 +35,8 @@ export class DgWksAdd extends DgDialog {
 			<div slot="title">Add Workspace!!</div>
 
 			<div class="dialog-content">
-				<d-input label="name" name="name"> </d-input>
-				<d-text class="desc" label="description" name="description"> </d-text>
+				<d-input label="name" name="name"></d-input>
+				<d-text class="desc" label="description" name="description"></d-text>
 			</div>
 			
 			<button slot="footer" class="do-cancel">CANCEL</button>
