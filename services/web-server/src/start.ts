@@ -3,6 +3,7 @@ import { KoaApp } from '#common/web/koa-app.js';
 import dseGenerics from './web/dse-generics.js';
 import dseMedia from './web/dse-media.js';
 import dseWks from './web/dse-wks.js';
+import dseUser from './web/dse-user.js';
 import routerAuthGoogleOAuth from './web/router-auth-google-oauth.js';
 
 const PORT = 8080;
@@ -19,7 +20,8 @@ async function main() {
 		apiMdws: [
 			dseWks('/api').middleware(),
 			dseMedia('/api').middleware(),
-			dseGenerics('/api').middleware()
+			dseGenerics('/api').middleware(),
+			dseUser('/api').middleware(),
 		]
 	});
 

@@ -2,8 +2,9 @@ import { position } from '@dom-native/draggable';
 import { getRouteWksId, pathAt } from 'common/route.js';
 import { logoff, UserContext } from 'common/user-ctx.js';
 import { BaseViewElement } from 'common/v-base.js';
-import { append, css, customElement, first, frag, on, onEvent, onHub, push } from 'dom-native';
+import { append, css, customElement, elem, first, frag, on, onEvent, onHub, push } from 'dom-native';
 import { isNotEmpty } from 'utils-min';
+import { DgChangePwd } from './dg-change-pwd';
 
 const _compCss = css`
 
@@ -44,6 +45,7 @@ export class MainView extends BaseViewElement {
 			<c-menu id='user-menu-123'>
 				<li class="do-logoff">Logoff</li>
 				<li class="show-profile">Profile</li>
+				<li class="change-pwd">Change password</li>
 			</c-menu>
 			`));
 
@@ -56,6 +58,10 @@ export class MainView extends BaseViewElement {
 
 			on(menu, 'pointerup', 'li.show-profile', async (evt) => {
 				this.doOpenProfilePanel()
+			});
+
+			on(menu, 'pointerup', 'li.change-pwd', async () => {
+				append(document.body, elem('dg-change-pwd')) as DgChangePwd;
 			});
 		}
 	}
@@ -119,7 +125,6 @@ export class MainView extends BaseViewElement {
 			});
 		}
 	}
-
 }
 
 //// HTML

@@ -67,7 +67,8 @@ export class Err extends Error {
 			rec = { ...svrCode_or_rec } as ErrRec; // Note - here needs to help TS
 		}
 		// just need to capture the string for standard error message
-		super(rec.svrCode.toString().slice(7, -1))
+		// fixed ReferenceError<Super constructor may only be called once> by Alisdon @22-01-06
+		// super(rec.svrCode.toString().slice(7, -1))
 		this.#rec = Object.freeze(rec);
 	}
 
