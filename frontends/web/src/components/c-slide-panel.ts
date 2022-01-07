@@ -1,4 +1,4 @@
-import {adoptStyleSheets, BaseHTMLElement, closest, css, customElement, first, html, onDoc, onEvent, trigger} from 'dom-native';
+import {adoptStyleSheets, BaseHTMLElement, css, customElement, first, html, on, onDoc, onEvent, trigger} from 'dom-native';
 
 //// CSS
 const _compCss = css`
@@ -65,12 +65,10 @@ const _compCss = css`
 export class SliderPanelElement extends BaseHTMLElement {
 	/* to avoid having the caller doing a prevent default on click */
 	private _acceptDocEvent = false;
-	private _shawow: HTMLElement | ShadowRoot;
 
 	constructor() {
 		super();
-		this._shawow = adoptStyleSheets(this.attachShadow({mode: 'open'}), _compCss);
-		this._shawow.append(_renderShadow());
+		adoptStyleSheets(this.attachShadow({mode: 'open'}), _compCss).append(_renderShadow());
 	}
 
 	init() {
@@ -83,7 +81,7 @@ export class SliderPanelElement extends BaseHTMLElement {
 
 	postDisplay() {
 		this._acceptDocEvent = true;
-		first(this._shawow, '.slide-panel')?.classList.add('open');
+		first(this.shadowRoot, '.slide-panel')?.classList.add('open');
 	}
 
 	//#region    ---------- Events ----------
@@ -108,11 +106,11 @@ export class SliderPanelElement extends BaseHTMLElement {
 
 	close() {
 		this._acceptDocEvent = false;
-		first(this._shawow, '.open')?.classList.remove('open');
-		setTimeout(() => {
+		first(this.shadowRoot, '.open')?.classList.remove('open');
+		on(this.shadowRoot, 'transitionend', () => {
 			this.remove();
 			trigger(this, 'CLOSE');
-		}, 300);
+		});
 	}
 }
 
